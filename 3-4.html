@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3-4</title>
+  
+  <style>
+    .styled-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    .styled-table th, .styled-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    .styled-table th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  class Employee {
+    constructor(id, name, position) {
+      this.id = id;
+      this.name = name;
+      this.position = position;
+    }
+  }
+
+  class EmpTable {
+    constructor(employees) {
+      this.employees = employees;
+    }
+
+    getHtml() {
+      let tableHtml = '<table class="styled-table"><thead><tr><th>ID</th><th>Name</th><th>Position</th></tr></thead><tbody>';
+
+      this.employees.forEach(employee => {
+        tableHtml += `<tr><td>${employee.id}</td><td>${employee.name}</td><td>${employee.position}</td></tr>`;
+      });
+
+      tableHtml += '</tbody></table>';
+      return tableHtml;
+    }
+  }
+
+  class StyledEmpTable extends EmpTable {
+    getStyles() {
+      return `
+        <style>
+          .styled-table {
+            border: 2px solid #3498db;
+          }
+        </style>
+      `;
+    }
+
+    getHtml() {
+      return this.getStyles() + super.getHtml();
+    }
+  }
+
+  const employeesArray = [
+    new Employee(1, 'John', 'Manager'),
+    new Employee(2, 'Jane', 'Developer'),
+    new Employee(3, 'Bob', 'Analyst')
+  ];
+
+  const styledEmpTable = new StyledEmpTable(employeesArray);
+  document.body.innerHTML = styledEmpTable.getHtml();
+</script>
+
+</body>
+</html>
